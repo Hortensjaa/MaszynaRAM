@@ -1,29 +1,32 @@
 #ifndef MASZYNARAM_MAIN_SERVICE_H
 #define MASZYNARAM_MAIN_SERVICE_H
 
+#include "support_functions.c"
 #include "memory_service.c"
 #include "input_output_tapes.c"
 #include "accumulator_service.c"
 #include "prompts_and_exceptions.c"
-#include "support_functions.c"
+#include "commands_queue.c"
+#include "stream_control.c"
+
 
 // obsluga pamieci
-void read(); // czytanie kolejnej liczby z taśmy wejściowej do komorki o numerze i
-void store(); // zapisanie wartosci z akumulatora do komórki o numerze i
+void read(int n, ...); // czytanie kolejnej liczby z taśmy wejściowej do komorki o numerze i
+void store(int n, ...); // zapisanie wartosci z akumulatora do komórki o numerze i
 
 // obsluga akumulatora
-void load(); // przesłanie do akumulatora wartosci
-void add(); // +
-void sub(); // -
-void mult(); // *
-void diiv(); // :
-void write(); // zapisywanie na taśmie wyjsciowej
+void load(int n, ...); // przesłanie do akumulatora wartosci
+void add(int n, ...); // +
+void sub(int n, ...); // -
+void mult(int n, ...); // *
+void diiv(int n, ...); // :
+void write(int n, ...); // zapisywanie na taśmie wyjsciowej
 
 // przekierowania
-void jump(); // skok bezwarunkowy
-bool jzero(); // skok, jeśli w akumulatorze znajduje się zero
-bool jgtz(); // skok, jeśli w akumulatorze znajduje się liczba dodatnia
-void halt(); // zatrzymanie programu
+void jump(int n, ...); // skok bezwarunkowy
+void jzero(int n, ...); // skok, jeśli w akumulatorze znajduje się zero
+void jgtz(int n, ...); // skok, jeśli w akumulatorze znajduje się liczba dodatnia
+void halt(int n, ...); // zatrzymanie programu
 
 // wypisywanie stanu
 void print_status();

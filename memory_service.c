@@ -21,21 +21,23 @@ int mem_arg_service(char arg[]) {
 
 // dzialania
 
-void read_index(char arg[]) {
-    if (input_head == NULL) return empty_input();
+bool read_index(char arg[]) {
+    if (input_head == NULL) return empty_accumulator();
     int index = mem_arg_service(arg);
-    if (index == INT_MIN) { return; }
+    if (index == INT_MIN) return false;
     tape_node* cur = delete_input_tape();
     memo[index] = cur->data;
     printf("Wpisano liczbe %d z wejscia do komorki nr %d\n", cur->data, index);
+    return true;
 }
 
-void store_index(char arg[]) {
+bool store_index(char arg[]) {
     if (acc == INT_MIN) return empty_accumulator();
     int index = mem_arg_service(arg);
-    if (index == INT_MIN) { return; }
+    if (index == INT_MIN) return false;
     memo[index] = acc;
     printf("Wczytano liczbe %d z akumulatora do komorki nr %d\n", acc, index);
+    return true;
 }
 
 // wywolania

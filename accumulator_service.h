@@ -9,11 +9,11 @@
 
 int acc_arg_service(char arg[]);
 
-void load_value(char arg[]);
-void add_value(char arg[]);
-void sub_value(char arg[]);
-void mult_value(char arg[]);
-void div_value(char arg[]);
-void write_value(char arg[]);
+bool load_value(char arg[]);
+bool add_value(char arg[]);
+bool sub_value(char arg[]);
+bool mult_value(char arg[]);
+bool div_value(char arg[]);
+bool write_value(char arg[]);
 
 #endif //MASZYNARAM_ACCUMULATOR_SERVICE_H

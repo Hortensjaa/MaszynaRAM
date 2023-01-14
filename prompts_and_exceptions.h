@@ -8,8 +8,8 @@
 int invalid_mem_index(); // komunikat o niepoprawnym indeksie komorki
 int invalid_argument(); // komunikat o niepoprawnym argumencie
 void invalid_command(); // komunikat o niepoprawnej komendzie
-void empty_accumulator(); // komunikat o pustym akumulatorze
-void empty_input(); // komunikat o pustym wejsciu
+bool empty_accumulator(); // komunikat o pustym akumulatorze
+bool empty_input(); // komunikat o pustym wejsciu
 
 void index_redirect_prompt(int index, int redirect); // ^n
 void index_prompt(int index); // n

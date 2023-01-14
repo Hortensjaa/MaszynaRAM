@@ -31,38 +31,48 @@ return invalid_argument();
 
 // działania
 
-void load_value(char arg[]) {
+bool load_value(char arg[]) {
     int a = acc_arg_service(arg);
-    if (a == INT_MIN) return;
+    if (a == INT_MIN) return false;
     acc = a;
+    return true;
 }
 
-void add_value(char arg[]) {
+bool add_value(char arg[]) {
+    if (acc == INT_MIN) return empty_accumulator();
     int a = acc_arg_service(arg);
-    if (a == INT_MIN) return;
+    if (a == INT_MIN) return false;
     acc += a;
+    return true;
 }
 
-void sub_value(char arg[]) {
+bool sub_value(char arg[]) {
+    if (acc == INT_MIN) return empty_accumulator();
     int a = acc_arg_service(arg);
-    if (a == INT_MIN) return;
+    if (a == INT_MIN) return false;
     acc -= a;
+    return true;
 }
 
-void mult_value(char arg[]) {
+bool mult_value(char arg[]) {
+    if (acc == INT_MIN) return empty_accumulator();
     int a = acc_arg_service(arg);
-    if (a == INT_MIN) return;
+    if (a == INT_MIN) return false;
     acc *= a;
+    return true;
 }
 
-void div_value(char arg[]) {
+bool div_value(char arg[]) {
+    if (acc == INT_MIN) return empty_accumulator();
     int a = acc_arg_service(arg);
-    if (a == INT_MIN) return;
+    if (a == INT_MIN) return false;
     acc /= a;
+    return true;
 }
 
-void write_value(char arg[]) {
+bool write_value(char arg[]) {
     int a = acc_arg_service(arg);
-    if (a == INT_MIN) return;
+    if (a == INT_MIN) return false;
     insert_output_tape(a);
+    return true;
 }

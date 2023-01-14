@@ -9,8 +9,8 @@
 
 int mem_arg_service(char arg[]);
 
-void read_index(char arg[]);
-void store_index(char arg[]);
+bool read_index(char arg[]);
+bool store_index(char arg[]);
 
 //void read(); // czytanie kolejnej liczby z taśmy wejściowej do komorki o numerze i
 //void store(); // zapisanie wartosci z akumulatora do komórki o numerze i

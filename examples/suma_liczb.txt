@@ -1,0 +1,14 @@
+       read  1
+       read  2
+       load  1
+       sub   =1
+petla  sub   =1
+       store 1
+       load  2
+       read  3
+       add   3
+       store 2
+       load  1
+       jgtz  petla
+       write 2
+       halt

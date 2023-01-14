@@ -16,12 +16,14 @@ void invalid_command() {
            "LOAD, STORE, ADD, SUB, MULT, DIV, READ, WRITE, JUMP, JGTZ, JZERO, HALT\n");
 }
 
-void empty_accumulator() {
+bool empty_accumulator() {
     printf("Akumulator jest pusty\n");
+    return false;
 }
 
-void empty_input() {
+bool empty_input() {
     printf("Tasma wejsciowa jest pusta - podaj inna komende\n");
+    return false;
 }
 
 // prompts
