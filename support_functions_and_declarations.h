@@ -11,7 +11,7 @@
 
 #define MEMORY_SIZE 1000
 #define MAX_ARG_LEN 4 // ((int)log10((double)MEMORY_SIZE) + 1)
-#define MAX_TAG_LEN 10
+#define MAX_TAG_LEN 50
 #define PRINT_LINE "- - - - - - - - - - - - - - - - - - - - - - - - - - -\n"
 #define TAG_PLACEHOLDER "<ph>"
 

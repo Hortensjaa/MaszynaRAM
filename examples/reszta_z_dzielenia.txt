@@ -1,0 +1,21 @@
+     read  1
+     read  2
+     load  1
+     div   2
+     jgtz  et1
+     add   2
+     store 5
+
+     load  1
+     store 2
+     load  5
+     store 1
+     div   2
+
+et1 store 3
+     mult  2
+     sub   1
+     mult  =-1
+     store 4
+     write 4
+     halt

@@ -1,0 +1,26 @@
+             read  1
+             load  1
+             div   =2
+             mult  =2
+             sub   1
+             jzero parz
+np read  1
+             load  1
+             jzero yes
+             div   =2
+             mult  =2
+             sub   1
+             jzero no
+             jump  np
+parz    read  1
+             load  1
+             jzero yes
+             div   =2
+             mult  =2
+             sub   1
+             jzero parz
+             jump  no
+no          write =0
+             halt
+yes         write =1
+             halt

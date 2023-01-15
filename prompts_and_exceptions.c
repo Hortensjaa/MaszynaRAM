@@ -47,3 +47,15 @@ void memory_index_redirect_prompt(int index) {
 void memory_index_prompt(int index) {
     printf("Proba wykonania dzialania w komorce nr %d\n", index);
 }
+
+void stream_disable_prompt(char tag[]) {
+    printf("Warunek skoku spelniony; blokujemy strumien, dopoki nie napotkamy etykiety %s\n", tag);
+}
+
+void jump_to_tag_prompt(char tag[]) {
+    printf("Warunek skoku spelniony; przechodzimy do etykiety %s\n", tag);
+}
+
+void condition_false_prompt() {
+    printf("Warunek skoku nie jest spelniony\n");
+}

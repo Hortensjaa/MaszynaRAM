@@ -18,4 +18,8 @@ void number_prompt(int a); // =n
 void memory_index_redirect_prompt(int index); // ^i
 void memory_index_prompt(int index); // i
 
+void stream_disable_prompt(char tag[]); // warunek zostal spelniony, wiec blokujemy strumien az napotkamy etykiete
+void jump_to_tag_prompt(char tag[]); // warunek jest spelniony, wiec idziemy do etykiety
+void condition_false_prompt(); // warunek nie jest spelniony, wiec ignorujemy
+
 #endif //MASZYNARAM_PROMPTS_AND_EXCEPTIONS_H

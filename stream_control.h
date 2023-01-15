@@ -2,8 +2,8 @@
 #define MASZYNARAM_STREAM_CONTROL_H
 
 #include "support_functions_and_declarations.h"
-
-//bool stream_disabled = false;
+#include "commands_queue.h"
+#include "prompts_and_exceptions.h"
 
 void jump_tag(char tag[]); // skok bezwarunkowy
 void jzero_tag(char tag[]); // skok, jeśli w akumulatorze znajduje się zero
