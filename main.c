@@ -11,8 +11,8 @@ int main(void) {
 //    else if (n == 1) live_mode = false;
 //    else printf("Wybierz 0 lub 1\n");
 
-    printf("Wprowadzaj kolejno instrukcje\n"); // TODO: W tym trybie da się tylko odwoływać do wcześniej zadeklarowanych etykiet
-    char command[20];
+    printf("Wprowadzaj kolejno instrukcje\n");
+    char command[MAX_TAG_LEN];
 
     //petla glowna
     while (true) {

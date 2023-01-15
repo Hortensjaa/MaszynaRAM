@@ -173,10 +173,10 @@ void jump(int n, ...) {
         va_end(ptr);
         if (stream_disabled == true && equal_string(tag, tag_on_stack)) stream_disabled = false;
     }
-    char arg[MAX_ARG_LEN];
-    scanf("%s", arg);
-    insert_command_node("JUMP", arg, tag);
-    if (stream_disabled == false) jump_tag(tag);
+    char tag_arg[MAX_TAG_LEN];
+    scanf("%s", tag_arg);
+    insert_command_node("JUMP", tag_arg, tag);
+    if (stream_disabled == false) jump_tag(tag_arg);
 }
 
 void jzero(int n, ...) {
@@ -189,10 +189,10 @@ void jzero(int n, ...) {
         va_end(ptr);
         if (stream_disabled == true && equal_string(tag, tag_on_stack)) stream_disabled = false;
     }
-    char arg[MAX_ARG_LEN];
-    scanf("%s", arg);
-    insert_command_node("JZERO", arg, tag);
-    if (stream_disabled == false)jzero_tag(tag);
+    char tag_arg[MAX_TAG_LEN];
+    scanf("%s", tag_arg);
+    insert_command_node("JZERO", tag_arg, tag);
+    if (stream_disabled == false) jzero_tag(tag_arg);
 }
 
 void jgtz(int n, ...) {
@@ -205,10 +205,10 @@ void jgtz(int n, ...) {
         va_end(ptr);
         if (stream_disabled == true && equal_string(tag, tag_on_stack)) stream_disabled = false;
     }
-    char arg[MAX_ARG_LEN];
-    scanf("%s", arg);
-    insert_command_node("JGTZ", arg, tag);
-    if (stream_disabled == false) jgtz_tag(tag);
+    char tag_arg[MAX_TAG_LEN];
+    scanf("%s", tag_arg);
+    insert_command_node("JGTZ", tag_arg, tag);
+    if (stream_disabled == false) jgtz_tag(tag_arg);
 }
 
 void halt(int n, ...) {
@@ -224,10 +224,11 @@ void halt(int n, ...) {
     if (stream_disabled == false) halt_tag();
 }
 
-// OGOLNA OBSLUGA
+// WYPISYWANIE STANU
 
 void print_status() {
-    printf("%s", PRINT_LINE);
+    if (!stream_disabled) printf("%s", PRINT_LINE);
+    else printf("%s", PRINT_LINE_DISABLED);
     printf("Kolejka instrukcji: "); print_command_queue();
     printf("Tasma wejsciowa: "); print_tape('i');
     if (acc != INT_MIN) printf("Akumulator: %d\n", acc);

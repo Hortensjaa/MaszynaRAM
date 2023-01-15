@@ -22,7 +22,7 @@ int mem_arg_service(char arg[]) {
 // dzialania
 
 bool read_index(char arg[]) {
-    if (input_head == NULL) return empty_accumulator();
+    if (input_head == NULL) return empty_input();
     int index = mem_arg_service(arg);
     if (index == INT_MIN) return false;
     tape_node* cur = delete_input_tape();

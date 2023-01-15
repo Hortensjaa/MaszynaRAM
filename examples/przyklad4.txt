@@ -1,0 +1,17 @@
+       read  1
+       read  2
+petla load  1
+       sub   =1
+       store 1
+       jzero yes
+       read  3
+       load  2
+       sub   3
+       jgtz  no
+       load  3
+       store 2
+       jump  petla
+yes   write =1
+       halt
+no    write =0
+       halt

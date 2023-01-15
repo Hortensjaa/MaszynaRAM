@@ -13,7 +13,8 @@
 #define MAX_ARG_LEN 4 // ((int)log10((double)MEMORY_SIZE) + 1)
 #define MAX_TAG_LEN 50
 #define PRINT_LINE "- - - - - - - - - - - - - - - - - - - - - - - - - - -\n"
-#define TAG_PLACEHOLDER "<ph>"
+#define PRINT_LINE_DISABLED "- - - - - - - - - STREAM - DISABLED - - - - - - - - -\n"
+#define TAG_PLACEHOLDER "<placeholder>"
 
 // TODO: zapisywanie kodu do pliku?
 // TODO: tryb wpisywania instrukcji i wykonywania po skonczeniu

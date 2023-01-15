@@ -1,0 +1,28 @@
+        read  1
+        read  2
+rosnie load  1
+        sub   =1
+        store 1
+        jzero yes
+        read  3
+        load  2
+        sub   3
+        jgtz  maleje
+        load  3
+        store 2
+        jump  rosnie
+maleje load  1
+        sub   =1
+        store 1
+        jzero yes
+        load  3
+        store 2
+        read  3
+        load  2
+        sub   3
+        jgtz  maleje
+        jump  no
+yes    write =1
+        halt
+no     write =0
+        halt
