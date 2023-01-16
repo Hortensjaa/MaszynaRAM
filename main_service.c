@@ -8,249 +8,57 @@ char names_arr[COMMANDS_NUMBER][MAX_COMMAND_LEN] = {"LOAD", "ADD", "SUB", "MULT"
                                       "WRITE", "STORE", "READ",
                                       "JUMP", "JZERO", "JGTZ", "HALT"};
 
-// KOMENDY MASZYNY RAM
+// OBSLUGA DWOCH PRZYPADKOW - Z TAGIEM Z PORZODU I BEZ
 
-void with_tag_service(char tag[], int fun_arr_index) {
+int find_in_names_arr(char command[]) {
+    for (int i  = 0; i < COMMANDS_NUMBER; i++){
+        if (equal_string(command, names_arr[i])) return i;
+    }
+    return -1;
+}
+
+void with_tag_service(char command[], char tag[]) {
+    int fun_arr_index = find_in_names_arr(command);
+    if (fun_arr_index == -1) {invalid_command(); return;}
     if (stream_disabled == true && equal_string(tag, tag_on_stack)) stream_disabled = false;
     char arg[MAX_ARG_LEN];
     if (fun_arr_index != 11) scanf("%s", arg);
     if (stream_disabled == false) {
-        bool b = (*fun_ptr_arr[fun_arr_index])(arg);
-        if (b) insert_command_node(names_arr[fun_arr_index], arg, tag);
+        if (fun_arr_index <= 7) {
+            bool b = (*fun_ptr_arr[fun_arr_index])(arg);
+            if (b) insert_command_node(names_arr[fun_arr_index], arg, tag);
+        }
+        else {
+            insert_command_node(names_arr[fun_arr_index], arg, tag);
+            (*fun_ptr_arr[fun_arr_index])(arg);
+        }
     }
     else insert_command_node(names_arr[fun_arr_index], arg, tag);
 }
 
-void without_tag_service (int fun_arr_index) {
-    char tag[MAX_TAG_LEN] = TAG_PLACEHOLDER;
-    char arg[MAX_ARG_LEN];
-    if (fun_arr_index != 11) scanf("%s", arg); // halt nie bierze argumentu
-    if (stream_disabled == false) {
-        bool b = (*fun_ptr_arr[fun_arr_index])(arg);
-        if (b) insert_command_node(names_arr[fun_arr_index], arg, tag);
+void without_tag_service (char command[]) { // prev: int fun_arr_index
+    int fun_arr_index = find_in_names_arr(command);
+    if (fun_arr_index == -1) {
+        char tag[MAX_TAG_LEN];
+        strcpy(tag, command);
+        scanf("%s", command);
+        with_tag_service(command, tag);
     }
-    else insert_command_node(names_arr[fun_arr_index], arg, tag);
-}
-
-
-// obsluga pamieci
-
-void read(int n, ...) {
-    // TODO: powtarzajace sie linijki kodu - da się to wrzucic do jednej funkcji? Chociaż obsługę tagów...
-    char tag[MAX_TAG_LEN];
-    if (n == 0) strcpy(tag, TAG_PLACEHOLDER);
-    if (n == 1) {
-        va_list ptr;
-        va_start(ptr, n);
-        strcpy(tag, va_arg(ptr, char*));
-        va_end(ptr);
-        if (stream_disabled == true && equal_string(tag, tag_on_stack)) stream_disabled = false;
+    else {
+        char tag[MAX_TAG_LEN] = TAG_PLACEHOLDER;
+        char arg[MAX_ARG_LEN];
+        if (fun_arr_index != 11) scanf("%s", arg); // halt nie bierze argumentu
+        if (stream_disabled == false) {
+            if (fun_arr_index <= 7) {
+                bool b = (*fun_ptr_arr[fun_arr_index])(arg);
+                if (b) insert_command_node(names_arr[fun_arr_index], arg, tag);
+            }
+            else { // te odpowiedzialne za stream sa najpierw dodawane do kolejki, pozniej wykonywane
+                insert_command_node(names_arr[fun_arr_index], arg, tag);
+                (*fun_ptr_arr[fun_arr_index])(arg);
+            }
+        } else insert_command_node(names_arr[fun_arr_index], arg, tag);
     }
-    char arg[MAX_ARG_LEN];
-    scanf("%s", arg);
-    if (stream_disabled == false) {
-        bool b = read_index(arg);
-        if (b) insert_command_node("READ", arg, tag);
-    }
-    else insert_command_node("READ", arg, tag);
-}
-
-void store(int n, ...) {
-    char tag[MAX_TAG_LEN];
-    if (n == 0) strcpy(tag, TAG_PLACEHOLDER);
-    if (n == 1) {
-        va_list ptr;
-        va_start(ptr, n);
-        strcpy(tag, va_arg(ptr, char*));
-        va_end(ptr);
-        if (stream_disabled == true && equal_string(tag, tag_on_stack)) stream_disabled = false;
-    }
-    char arg[MAX_ARG_LEN];
-    scanf("%s", arg);
-    if (stream_disabled == false) {
-        bool b = store_index(arg);
-        if (b) insert_command_node("STORE", arg, tag);
-    }
-    else insert_command_node("STORE", arg, tag);
-}
-
-// obsluga akumulatora
-
-void load(int n, ...) {
-    char tag[MAX_TAG_LEN];
-    if (n == 0) strcpy(tag, TAG_PLACEHOLDER);
-    if (n == 1) {
-        va_list ptr;
-        va_start(ptr, n);
-        strcpy(tag, va_arg(ptr, char*));
-        va_end(ptr);
-        if (stream_disabled == true && equal_string(tag, tag_on_stack)) stream_disabled = false;
-    }
-    char arg[MAX_ARG_LEN];
-    scanf("%s", arg);
-    if (stream_disabled == false) {
-        bool b = load_value(arg);
-        if (b) insert_command_node("LOAD", arg, tag);
-    }
-    else insert_command_node("LOAD", arg, tag);
-}
-
-void add(int n, ...) {
-    char tag[MAX_TAG_LEN];
-    if (n == 0) strcpy(tag, TAG_PLACEHOLDER);
-    if (n == 1) {
-        va_list ptr;
-        va_start(ptr, n);
-        strcpy(tag, va_arg(ptr, char*));
-        va_end(ptr);
-        if (stream_disabled == true && equal_string(tag, tag_on_stack)) stream_disabled = false;
-    }
-    char arg[MAX_ARG_LEN];
-    scanf("%s", arg);
-    if (stream_disabled == false) {
-        bool b = add_value(arg);
-        if (b) insert_command_node("ADD", arg, tag);
-    }
-    else insert_command_node("ADD", arg, tag);
-}
-
-void sub(int n, ...) {
-    char tag[MAX_TAG_LEN];
-    if (n == 0) strcpy(tag, TAG_PLACEHOLDER);
-    if (n == 1) {
-        va_list ptr;
-        va_start(ptr, n);
-        strcpy(tag, va_arg(ptr, char*));
-        va_end(ptr);
-        if (stream_disabled == true && equal_string(tag, tag_on_stack)) stream_disabled = false;
-    }
-    char arg[MAX_ARG_LEN];
-    scanf("%s", arg);
-    if (stream_disabled == false) {
-        bool b = sub_value(arg);
-        if (b) insert_command_node("SUB", arg, tag);
-    }
-    else insert_command_node("SUB", arg, tag);
-}
-
-void mult(int n, ...) {
-    char tag[MAX_TAG_LEN];
-    if (n == 0) strcpy(tag, TAG_PLACEHOLDER);
-    if (n == 1) {
-        va_list ptr;
-        va_start(ptr, n);
-        strcpy(tag, va_arg(ptr, char*));
-        va_end(ptr);
-        if (stream_disabled == true && equal_string(tag, tag_on_stack)) stream_disabled = false;
-    }
-    char arg[MAX_ARG_LEN];
-    scanf("%s", arg);
-    if (stream_disabled == false) {
-        bool b = mult_value(arg);
-        if (b) insert_command_node("MULT", arg, tag);
-    }
-    else insert_command_node("MULT", arg, tag);
-}
-
-void diiv(int n, ...) {
-    char tag[MAX_TAG_LEN];
-    if (n == 0) strcpy(tag, TAG_PLACEHOLDER);
-    if (n == 1) {
-        va_list ptr;
-        va_start(ptr, n);
-        strcpy(tag, va_arg(ptr, char*));
-        va_end(ptr);
-        if (stream_disabled == true && equal_string(tag, tag_on_stack)) stream_disabled = false;
-    }
-    char arg[MAX_ARG_LEN];
-    scanf("%s", arg);
-    if (stream_disabled == false) {
-        bool b = div_value(arg);
-        if (b) insert_command_node("DIV", arg, tag);
-    }
-    else insert_command_node("DIV", arg, tag);
-}
-
-void write(int n, ...) {
-    char tag[MAX_TAG_LEN];
-    if (n == 0) strcpy(tag, TAG_PLACEHOLDER);
-    if (n == 1) {
-        va_list ptr;
-        va_start(ptr, n);
-        strcpy(tag, va_arg(ptr, char*));
-        va_end(ptr);
-        if (stream_disabled == true && equal_string(tag, tag_on_stack)) stream_disabled = false;
-    }
-    char arg[MAX_ARG_LEN];
-    scanf("%s", arg);
-    if (stream_disabled == false) {
-        bool b = write_value(arg);
-        if (b) insert_command_node("WRITE", arg, tag);
-    }
-    else insert_command_node("WRITE", arg, tag);
-}
-
-// przekierowania
-
-void jump(int n, ...) {
-    char tag[MAX_TAG_LEN];
-    if (n == 0) strcpy(tag, TAG_PLACEHOLDER);
-    if (n == 1) {
-        va_list ptr;
-        va_start(ptr, n);
-        strcpy(tag, va_arg(ptr, char*));
-        va_end(ptr);
-        if (stream_disabled == true && equal_string(tag, tag_on_stack)) stream_disabled = false;
-    }
-    char tag_arg[MAX_TAG_LEN];
-    scanf("%s", tag_arg);
-    insert_command_node("JUMP", tag_arg, tag);
-    if (stream_disabled == false) jump_tag(tag_arg);
-}
-
-void jzero(int n, ...) {
-    char tag[MAX_TAG_LEN];
-    if (n == 0) strcpy(tag, TAG_PLACEHOLDER);
-    if (n == 1) {
-        va_list ptr;
-        va_start(ptr, n);
-        strcpy(tag, va_arg(ptr, char*));
-        va_end(ptr);
-        if (stream_disabled == true && equal_string(tag, tag_on_stack)) stream_disabled = false;
-    }
-    char tag_arg[MAX_TAG_LEN];
-    scanf("%s", tag_arg);
-    insert_command_node("JZERO", tag_arg, tag);
-    if (stream_disabled == false) jzero_tag(tag_arg);
-}
-
-void jgtz(int n, ...) {
-    char tag[MAX_TAG_LEN];
-    if (n == 0) strcpy(tag, TAG_PLACEHOLDER);
-    if (n == 1) {
-        va_list ptr;
-        va_start(ptr, n);
-        strcpy(tag, va_arg(ptr, char*));
-        va_end(ptr);
-        if (stream_disabled == true && equal_string(tag, tag_on_stack)) stream_disabled = false;
-    }
-    char tag_arg[MAX_TAG_LEN];
-    scanf("%s", tag_arg);
-    insert_command_node("JGTZ", tag_arg, tag);
-    if (stream_disabled == false) jgtz_tag(tag_arg);
-}
-
-void halt(int n, ...) {
-    char tag[MAX_TAG_LEN];
-    if (n == 0) strcpy(tag, TAG_PLACEHOLDER);
-    if (n == 1) {
-        va_list ptr;
-        va_start(ptr, n);
-        strcpy(tag, va_arg(ptr, char*));
-        va_end(ptr);
-        if (stream_disabled == true && equal_string(tag, tag_on_stack)) stream_disabled = false;
-    }
-    if (stream_disabled == false) halt_tag("\n");
 }
 
 // WYPISYWANIE STANU

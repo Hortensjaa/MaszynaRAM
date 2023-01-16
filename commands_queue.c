@@ -28,6 +28,15 @@ command_node* insert_command_node(char command[], char arg[], char tag[]) {
 // wykonywanie kolejki
 
 void run_command(command_node* node) {
+//    if (!stream_disabled) printf("%s", PRINT_LINE);
+    printf("%s", PRINT_LINE_DISABLED);
+    printf("Kolejka instrukcji: "); print_command_queue();
+    printf("Tasma wejsciowa: "); print_tape('i');
+    if (acc != INT_MIN) printf("Akumulator: %d\n", acc);
+    else printf("Akumulator: \n");
+    printf("Zajete komorki pamieci:\n"); print_memory();
+    printf("Tasma wyjsciowa: "); print_tape('o');
+    printf("%s", PRINT_LINE);
     if (equal_string(node->command, "READ")) read_index(node->arg);
     else if (equal_string(node->command, "STORE")) store_index(node->arg);
     else if (equal_string(node->command, "LOAD")) load_value(node->arg);
