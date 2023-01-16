@@ -1,3 +1,5 @@
+# czy ciag rosnie
+
        read  1
        read  2
 petla load  1

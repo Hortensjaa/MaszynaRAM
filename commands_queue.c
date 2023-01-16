@@ -39,7 +39,7 @@ void run_command(command_node* node) {
     else if (equal_string(node->command, "JUMP")) jump_tag(node->arg);
     else if (equal_string(node->command, "JZERO")) jzero_tag(node->arg);
     else if (equal_string(node->command, "JGTZ")) jgtz_tag(node->arg);
-    else if (equal_string(node->command, "HALT")) halt_tag();
+    else if (equal_string(node->command, "HALT")) halt_tag("\0");
 }
 
 command_node* find_tag_in_queue(char tag[]) {

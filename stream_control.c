@@ -4,7 +4,7 @@
 bool stream_disabled = false;
 char tag_on_stack[MAX_TAG_LEN] = TAG_PLACEHOLDER;
 
-void jump_tag(char tag[]) { // przeskocz do danego tagu
+bool jump_tag(char tag[]) { // przeskocz do danego tagu
     if (live_mode == true && stream_disabled == false) {
         command_node *b = find_tag_in_queue(tag);
         if (b != NULL) {
@@ -17,9 +17,10 @@ void jump_tag(char tag[]) { // przeskocz do danego tagu
             strcpy(tag_on_stack, tag);
         }
     }
+    return true;
 }
 
-void jzero_tag(char tag[]) {
+bool jzero_tag(char tag[]) {
     if (live_mode == true && stream_disabled == false) {
         if (acc == 0) {
             command_node *b = find_tag_in_queue(tag); // szukam etykiety w juz istniejacym kodzie
@@ -35,9 +36,10 @@ void jzero_tag(char tag[]) {
         }
         else condition_false_prompt();
     }
+    return true;
 }
 
-void jgtz_tag(char tag[]) {
+bool jgtz_tag(char tag[]) {
     if (live_mode == true && stream_disabled == false) {
         if (acc > 0) {
             command_node *b = find_tag_in_queue(tag);
@@ -53,11 +55,14 @@ void jgtz_tag(char tag[]) {
         }
         else condition_false_prompt();
     }
+    return true;
 }
 
-void halt_tag() {
+bool halt_tag(char placeholder[]) {
     if (live_mode == true && stream_disabled == false) {
         printf("Koniec dzialania programu :)");
         exit(0);
     }
+    printf("%s", placeholder); // TODO: da sie to jakos ladniej, zeby nie rzucalo bledu?
+    return true;
 }

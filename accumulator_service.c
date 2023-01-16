@@ -35,6 +35,7 @@ bool load_value(char arg[]) {
     int a = acc_arg_service(arg);
     if (a == INT_MIN) return false;
     acc = a;
+    printf("Wczytano liczbe %d do akumulatora\n", a);
     return true;
 }
 
@@ -43,6 +44,7 @@ bool add_value(char arg[]) {
     int a = acc_arg_service(arg);
     if (a == INT_MIN) return false;
     acc += a;
+    printf("Dodano liczbe %d do wartosci akumulatora\n", a);
     return true;
 }
 
@@ -51,6 +53,7 @@ bool sub_value(char arg[]) {
     int a = acc_arg_service(arg);
     if (a == INT_MIN) return false;
     acc -= a;
+    printf("Odjeto liczbe %d od wartosci akumulatora\n", a);
     return true;
 }
 
@@ -59,6 +62,7 @@ bool mult_value(char arg[]) {
     int a = acc_arg_service(arg);
     if (a == INT_MIN) return false;
     acc *= a;
+    printf("Wartosc akumulatora pomnozono przez %d\n", a);
     return true;
 }
 
@@ -67,6 +71,7 @@ bool div_value(char arg[]) {
     int a = acc_arg_service(arg);
     if (a == INT_MIN) return false;
     acc /= a;
+    printf("Wartosc akumulatora podzielono przez %d\n", a);
     return true;
 }
 
@@ -74,5 +79,6 @@ bool write_value(char arg[]) {
     int a = acc_arg_service(arg);
     if (a == INT_MIN) return false;
     insert_output_tape(a);
+    printf("Wypisano %d na tasme wyjsciowa\n", a);
     return true;
 }

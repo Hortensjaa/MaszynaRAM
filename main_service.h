@@ -10,6 +10,10 @@
 #include "stream_control.c"
 
 
+// obsluga tagow
+void without_tag_service(int fun_arr_index);
+void with_tag_service(char tag[], int fun_arr_index);
+
 // obsluga pamieci
 void read(int n, ...); // czytanie kolejnej liczby z taśmy wejściowej do komorki o numerze i
 void store(int n, ...); // zapisanie wartosci z akumulatora do komórki o numerze i

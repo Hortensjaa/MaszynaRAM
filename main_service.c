@@ -1,8 +1,37 @@
 #include "main_service.h"
 
 bool live_mode = true;
+bool (*fun_ptr_arr[])(char*) = {load_value, add_value, sub_value, mult_value, div_value,
+                                write_value, store_index,read_index,
+                                jump_tag, jzero_tag, jgtz_tag, halt_tag};
+char names_arr[COMMANDS_NUMBER][MAX_COMMAND_LEN] = {"LOAD", "ADD", "SUB", "MULT", "DIV",
+                                      "WRITE", "STORE", "READ",
+                                      "JUMP", "JZERO", "JGTZ", "HALT"};
 
 // KOMENDY MASZYNY RAM
+
+void with_tag_service(char tag[], int fun_arr_index) {
+    if (stream_disabled == true && equal_string(tag, tag_on_stack)) stream_disabled = false;
+    char arg[MAX_ARG_LEN];
+    if (fun_arr_index != 11) scanf("%s", arg);
+    if (stream_disabled == false) {
+        bool b = (*fun_ptr_arr[fun_arr_index])(arg);
+        if (b) insert_command_node(names_arr[fun_arr_index], arg, tag);
+    }
+    else insert_command_node(names_arr[fun_arr_index], arg, tag);
+}
+
+void without_tag_service (int fun_arr_index) {
+    char tag[MAX_TAG_LEN] = TAG_PLACEHOLDER;
+    char arg[MAX_ARG_LEN];
+    if (fun_arr_index != 11) scanf("%s", arg); // halt nie bierze argumentu
+    if (stream_disabled == false) {
+        bool b = (*fun_ptr_arr[fun_arr_index])(arg);
+        if (b) insert_command_node(names_arr[fun_arr_index], arg, tag);
+    }
+    else insert_command_node(names_arr[fun_arr_index], arg, tag);
+}
+
 
 // obsluga pamieci
 
@@ -221,7 +250,7 @@ void halt(int n, ...) {
         va_end(ptr);
         if (stream_disabled == true && equal_string(tag, tag_on_stack)) stream_disabled = false;
     }
-    if (stream_disabled == false) halt_tag();
+    if (stream_disabled == false) halt_tag("\n");
 }
 
 // WYPISYWANIE STANU
