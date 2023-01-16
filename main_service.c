@@ -1,7 +1,7 @@
 #include "main_service.h"
 
 bool live_mode = true;
-bool (*fun_ptr_arr[])(char*) = {load_value, add_value, sub_value, mult_value, div_value,
+bool (*fun_ptr_arr[COMMANDS_NUMBER])(char*) = {load_value, add_value, sub_value, mult_value, div_value,
                                 write_value, store_index,read_index,
                                 jump_tag, jzero_tag, jgtz_tag, halt_tag};
 char names_arr[COMMANDS_NUMBER][MAX_COMMAND_LEN] = {"LOAD", "ADD", "SUB", "MULT", "DIV",
@@ -21,14 +21,13 @@ void with_tag_service(char command[], char tag[]) {
     int fun_arr_index = find_in_names_arr(command);
     if (fun_arr_index == -1) {invalid_command(); return;}
     if (stream_disabled == true && equal_string(tag, tag_on_stack)) stream_disabled = false;
-    char arg[MAX_ARG_LEN];
+    char arg[MAX_TAG_LEN];
     if (fun_arr_index != 11) scanf("%s", arg);
     if (stream_disabled == false) {
         if (fun_arr_index <= 7) {
             bool b = (*fun_ptr_arr[fun_arr_index])(arg);
             if (b) insert_command_node(names_arr[fun_arr_index], arg, tag);
-        }
-        else {
+        } else {
             insert_command_node(names_arr[fun_arr_index], arg, tag);
             (*fun_ptr_arr[fun_arr_index])(arg);
         }
@@ -43,10 +42,9 @@ void without_tag_service (char command[]) { // prev: int fun_arr_index
         strcpy(tag, command);
         scanf("%s", command);
         with_tag_service(command, tag);
-    }
-    else {
+    } else {
         char tag[MAX_TAG_LEN] = TAG_PLACEHOLDER;
-        char arg[MAX_ARG_LEN];
+        char arg[MAX_TAG_LEN];
         if (fun_arr_index != 11) scanf("%s", arg); // halt nie bierze argumentu
         if (stream_disabled == false) {
             if (fun_arr_index <= 7) {
@@ -60,8 +58,6 @@ void without_tag_service (char command[]) { // prev: int fun_arr_index
         } else insert_command_node(names_arr[fun_arr_index], arg, tag);
     }
 }
-
-// WYPISYWANIE STANU
 
 void print_status() {
     if (!stream_disabled) printf("%s", PRINT_LINE);

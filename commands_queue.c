@@ -1,5 +1,6 @@
 #include "commands_queue.h"
 
+
 struct command_node *command_head = NULL;
 
 // dodawanie instrukcji do kolejki
@@ -28,27 +29,11 @@ command_node* insert_command_node(char command[], char arg[], char tag[]) {
 // wykonywanie kolejki
 
 void run_command(command_node* node) {
-//    if (!stream_disabled) printf("%s", PRINT_LINE);
-    printf("%s", PRINT_LINE_DISABLED);
-    printf("Kolejka instrukcji: "); print_command_queue();
-    printf("Tasma wejsciowa: "); print_tape('i');
-    if (acc != INT_MIN) printf("Akumulator: %d\n", acc);
-    else printf("Akumulator: \n");
-    printf("Zajete komorki pamieci:\n"); print_memory();
-    printf("Tasma wyjsciowa: "); print_tape('o');
-    printf("%s", PRINT_LINE);
-    if (equal_string(node->command, "READ")) read_index(node->arg);
-    else if (equal_string(node->command, "STORE")) store_index(node->arg);
-    else if (equal_string(node->command, "LOAD")) load_value(node->arg);
-    else if (equal_string(node->command, "WRITE")) write_value(node->arg);
-    else if (equal_string(node->command, "ADD")) add_value(node->arg);
-    else if (equal_string(node->command, "SUB")) sub_value(node->arg);
-    else if (equal_string(node->command, "MULT")) mult_value(node->arg);
-    else if (equal_string(node->command, "DIV")) div_value(node->arg);
-    else if (equal_string(node->command, "JUMP")) jump_tag(node->arg);
-    else if (equal_string(node->command, "JZERO")) jzero_tag(node->arg);
-    else if (equal_string(node->command, "JGTZ")) jgtz_tag(node->arg);
-    else if (equal_string(node->command, "HALT")) halt_tag("\0");
+    if (equal_string(node->command, "HALT")) halt_tag("\0");
+    else {
+        int fun_arr_index = find_in_names_arr(node->command);
+        (*fun_ptr_arr[fun_arr_index])(node->arg);
+    }
 }
 
 command_node* find_tag_in_queue(char tag[]) {

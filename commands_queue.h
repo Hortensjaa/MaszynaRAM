@@ -25,5 +25,6 @@ bool run_command_queue(char tag[]);
 
 void print_command_node(command_node *node);
 void print_command_queue();
+int find_in_names_arr(char command[]);
 
 #endif //MASZYNARAM_COMMANDS_QUEUE_H
