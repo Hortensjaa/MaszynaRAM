@@ -1,6 +1,7 @@
 #include "main_service.h"
 
 bool live_mode = true;
+bool read_from_file = false;
 bool (*fun_ptr_arr[COMMANDS_NUMBER])(char*) = {load_value, add_value, sub_value, mult_value, div_value,
                                 write_value, store_index,read_index,
                                 jump_tag, jzero_tag, jgtz_tag, halt_tag};
@@ -22,7 +23,10 @@ void with_tag_service(char command[], char tag[]) {
     if (fun_arr_index == -1) {invalid_command(); return;}
     if (stream_disabled == true && equal_string(tag, tag_on_stack)) stream_disabled = false;
     char arg[MAX_TAG_LEN];
-    if (fun_arr_index != 11) scanf("%s", arg);
+    if (fun_arr_index != 11) { // halt nie bierze argumentu
+        if (read_from_file == false) scanf("%s", arg);
+        else fscanf(file, "%s", arg);
+    }
     if (stream_disabled == false) {
         if (fun_arr_index <= 7) {
             bool b = (*fun_ptr_arr[fun_arr_index])(arg);
@@ -40,12 +44,16 @@ void without_tag_service (char command[]) { // prev: int fun_arr_index
     if (fun_arr_index == -1) {
         char tag[MAX_TAG_LEN];
         strcpy(tag, command);
-        scanf("%s", command);
+        if (read_from_file == false) scanf("%s", command);
+        else fscanf(file, "%s", command);
         with_tag_service(command, tag);
     } else {
         char tag[MAX_TAG_LEN] = TAG_PLACEHOLDER;
         char arg[MAX_TAG_LEN];
-        if (fun_arr_index != 11) scanf("%s", arg); // halt nie bierze argumentu
+        if (fun_arr_index != 11) { // halt nie bierze argumentu
+            if (read_from_file == false) scanf("%s", arg);
+            else fscanf(file, "%s", arg);
+        }
         if (stream_disabled == false) {
             if (fun_arr_index <= 7) {
                 bool b = (*fun_ptr_arr[fun_arr_index])(arg);

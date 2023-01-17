@@ -21,9 +21,11 @@
 int acc; // akumulator
 int memo[MEMORY_SIZE]; // pamiec
 bool live_mode; // wybor trybu
+bool read_from_file;
 char tag_on_stack[MAX_TAG_LEN]; // tag, na ktory czekam, jesli strumien jest zablokowany
 bool stream_disabled;
 char tag_on_stack[MAX_TAG_LEN];
+FILE *file; // plik do odczytywania danych
 
 bool (*fun_ptr_arr[COMMANDS_NUMBER])(char*);
 char names_arr[COMMANDS_NUMBER][MAX_COMMAND_LEN];

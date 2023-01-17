@@ -1,5 +1,3 @@
-# reszta z dzielenia
-
      read  1
      read  2
      load  1

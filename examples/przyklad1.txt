@@ -1,5 +1,3 @@
-# wczytuje az trafi na 0
-
 petla read 1
 load 1
 jzero koniec

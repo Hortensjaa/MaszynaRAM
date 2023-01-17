@@ -14,6 +14,7 @@ int main(void) {
         insert_input_tape(input);
     }
 
+    // wybor trybu
     printf("Wpisz 0, aby wybrac tryb krokowy lub 1, aby wybrac tryb ciagly dzialania programu\n");
     int choose = 2;
     while (choose != 0 && choose != 1) {
@@ -34,12 +35,34 @@ int main(void) {
         }
     }
 
-    // tryb ciagly
+    // tryb ciagly TODO: moznaby przerywac program, kiedy nie da sie wykonac instrukcji z kolejki
     else {
         printf("Wpisz 0, jezeli chcesz wybrac plik wejsciowy lub 1, aby wpisywac instrukcje do terminala\n");
         scanf("%d", &choose);
+
+        // tryb ciagly z plikiem wejsciowym
         if (choose == 0) { // TODO: obsluga pliku wejsciowego
-            printf("Wybierz plik wejsciowy: ");
+            read_from_file = true;
+            char path[100];
+            printf("Podaj sciezke do pliku wejsciowego: \n");
+            scanf("%s", path);
+            file = fopen(path, "r");
+            if (file == NULL) {
+                perror("Nie udalo sie otworzyc pliku");
+                return 1;
+            }
+            stream_disabled = true;
+            strcpy(tag_on_stack, "<illegal tag>");
+            char command[MAX_TAG_LEN];
+            int ret;
+            while (true) {
+                ret = fscanf(file, "%s", command);
+                if (ret == EOF) break;
+                without_tag_service(command);
+            }
+            fclose(file);
+            stream_disabled = false;
+            run_command_queue(TAG_PLACEHOLDER);
         }
         else if (choose == 1) {
             printf("Wpisuj kolejne instrukcje; gdy skonczysz, wpisz 'end'\n"); // TODO: legalnosc etykiet, zeby nie mozna bylo wpisac '<>'

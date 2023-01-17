@@ -1,6 +1,4 @@
-# suma ciagu
-
-       read  1
+      read  1
        read  2
        load  1
        sub   =1
