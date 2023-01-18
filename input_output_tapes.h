@@ -8,8 +8,8 @@ typedef struct tape_node { // struct reprezentujacy liczbe na tasmie
     struct tape_node* next;
 } tape_node;
 
-struct tape_node* input_head; // poczatek tasmy wejsciowej
-struct tape_node* output_head; // poczatek tasmy wyjsciowej
+extern struct tape_node* input_head; // poczatek tasmy wejsciowej
+extern struct tape_node* output_head; // poczatek tasmy wyjsciowej
 
 void get_input_tape();
 tape_node* insert_input_tape(int data);

@@ -1,5 +1,7 @@
 #include "memory_service.h"
 
+int memo[MEMORY_SIZE] = {0};
+
 // obsluga wprowadzania argumentow
 
 int mem_arg_service(char arg[]) {

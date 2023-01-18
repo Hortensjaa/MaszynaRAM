@@ -1,7 +1,10 @@
-#include "main_service.c"
+#include "main_service.h"
+
+//extern FILE *file;
 
 int main(void) {
     for (int i = 1; i < MEMORY_SIZE; i++) memo[i] = INT_MIN;
+//    FILE *file;
 
     // wczytywanie tasmy wejsciowej
     int n;

@@ -14,7 +14,7 @@ typedef struct command_node { // struct reprezentujacy komende w kolejce
 } command_node;
 
 //struct command_node *labels[10]; // tablica wskaznikow na "głowy" list komend
-struct command_node *command_head;
+extern struct command_node *command_head;
 
 command_node* new_command_node(char command[], char arg[], char tag[]);
 command_node* insert_command_node(char command[], char arg[], char tag[]);

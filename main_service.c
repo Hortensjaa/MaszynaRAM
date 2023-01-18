@@ -1,5 +1,6 @@
 #include "main_service.h"
 
+FILE *file = NULL;
 bool live_mode = true;
 bool read_from_file = false;
 bool (*fun_ptr_arr[COMMANDS_NUMBER])(char*) = {load_value, add_value, sub_value, mult_value, div_value,

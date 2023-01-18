@@ -5,6 +5,7 @@
 #include "input_output_tapes.h"
 #include "prompts_and_exceptions.h"
 
+
 // OBSLUGA AKUMULATORA - DZIAŁANIA NA AKUMULATORZE (MATEMATYCZNE ORAZ LOAD), WYPISANIE Z AKUMULATORA NA WYJSCIE (WRITE)
 
 int acc_arg_service(char arg[]);
