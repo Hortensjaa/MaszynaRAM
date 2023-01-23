@@ -12,4 +12,6 @@ bool jzero_tag(char tag[]); // JZERO - skok, jeśli w akumulatorze znajduje się
 bool jgtz_tag(char tag[]); // JGTZ - skok, jeśli w akumulatorze znajduje się liczba dodatnia
 bool halt_tag(char placeholder[]); // HALT - zatrzymanie programu
 
+void free_memory(); // zwalnianie pamięci programu - funkcja pomocnicza komendy HALT
+
 #endif //MASZYNARAM_STREAM_CONTROL_H

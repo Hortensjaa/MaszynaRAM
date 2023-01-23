@@ -36,6 +36,8 @@ bool run_command_queue(char tag[]);
 void print_command_node(command_node *node);
 // wypisywanie kolejki komend
 void print_command_queue();
+// zwalnianie pamięci
+void freeQueue(command_node *head);
 
 
 

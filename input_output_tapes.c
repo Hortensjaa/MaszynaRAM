@@ -40,3 +40,13 @@ void print_tape(tape_node *head) {
     }
     printf("\n");
 }
+
+// zwalnianie pamięci
+void freeTape(tape_node *head) {
+    struct tape_node* temp;
+    while (head != NULL) {
+        temp = head;
+        head = head->next;
+        free(temp);
+    }
+}

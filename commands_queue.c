@@ -97,3 +97,13 @@ void print_command_queue() {
     }
     printf("\n");
 }
+
+// zwalnianie pamięci
+void freeQueue(command_node *head) {
+    struct command_node* temp;
+    while (head != NULL) {
+        temp = head;
+        head = head->next;
+        free(temp);
+    }
+}

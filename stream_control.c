@@ -69,12 +69,19 @@ bool jgtz_tag(char tag[]) {
     return true;
 }
 
+void free_memory() {
+    freeTape(input_head);
+    freeTape(output_head);
+    freeQueue(command_head);
+}
+
 // HALT
 // przekazuję placeholder tylko po to, by móc obsługiwać HALT razem z innymi operacjami, które są jednoargumentowe :/
 bool halt_tag(char placeholder[]) {
     if (stream_disabled == false) {
         if (live_mode) printf("Koniec dzialania programu :)");
-        else print_status(); // wypisujemy na koniec stan maszyny
+        else print_status();
+        free_memory(); // zwolnienie pamięci
         exit(0); // poprawne zamknięcie programu z kodem 0
     }
     printf("%s", placeholder); // obejście błędu "unused value" :/

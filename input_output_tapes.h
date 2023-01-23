@@ -23,5 +23,7 @@ tape_node* delete_input_tape();
 
 // wypisanie stanu taśmy; argumentem powinien być char 'i' lub 'o'
 void print_tape(tape_node *head);
+// zwalnianie pamięci
+void freeTape(tape_node *head);
 
 #endif //MASZYNARAM_INPUT_OUTPUT_TAPES_H
