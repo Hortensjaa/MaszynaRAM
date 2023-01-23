@@ -1,5 +1,0 @@
-petla read 1
-load 1
-jzero koniec
-jump petla
-koniec halt

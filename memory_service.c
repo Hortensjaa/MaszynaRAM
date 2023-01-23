@@ -1,9 +1,14 @@
 #include "memory_service.h"
 
-int memo[MEMORY_SIZE] = {0};
+// OBSLUGA PAMIECI - READ, STORE, OBSLUGA ARGUMENTOW DLA INDEKSOW
 
-// obsluga wprowadzania argumentow
+int memo[MEMORY_SIZE] = {INT_MIN}; // "zerowanie" pamięci - INT_MIN jest traktowane jako pusta komórka
 
+/*
+ * Obsluga wprowadzania argumentow - indeksów; działanie podobne, jak w accumulator_service.c, jednak z uwzględnieniem,
+ * że po pierwsze, nie obsługujemy argumentów postaci "=n", a po drugie - zwracamy indeksy komórek, na których
+ * zostaną wykonane operacje, a nie wartości, które się w tych komórkach znajdują
+ */
 int mem_arg_service(char arg[]) {
     if (arg[0] == '^') {
         arg = arg + 1;
@@ -21,8 +26,9 @@ int mem_arg_service(char arg[]) {
     return invalid_argument();
 }
 
-// dzialania
+// OPERACJE MASZYNY RAM
 
+// READ
 bool read_index(char arg[]) {
     if (input_head == NULL) return empty_input();
     int index = mem_arg_service(arg);
@@ -33,6 +39,7 @@ bool read_index(char arg[]) {
     return true;
 }
 
+// STORE
 bool store_index(char arg[]) {
     if (acc == INT_MIN) return empty_accumulator();
     int index = mem_arg_service(arg);
@@ -42,8 +49,7 @@ bool store_index(char arg[]) {
     return true;
 }
 
-// wywolania
-
+// Wypisywanie zajętych komórek pamięci
 void print_memory() {
     for (int i = 1; i < MEMORY_SIZE; i++) {
         if (memo[i] != INT_MIN) printf("%d: %d\n", i, memo[i]);

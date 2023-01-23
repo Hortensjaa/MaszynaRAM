@@ -11,12 +11,12 @@ void invalid_command(); // komunikat o niepoprawnej komendzie
 bool empty_accumulator(); // komunikat o pustym akumulatorze
 bool empty_input(); // komunikat o pustym wejsciu
 
-void index_redirect_prompt(int index, int redirect); // ^n
-void index_prompt(int index); // n
-void number_prompt(int a); // =n
+void index_redirect_prompt(int index, int redirect); // wczytanie wartości z argumentu postaci ^n
+void index_prompt(int index); // wczytanie wartości z argumentu postaci n
+void number_prompt(int a); // wczytanie wartości z argumentu postaci =n
 
-void memory_index_redirect_prompt(int index); // ^i
-void memory_index_prompt(int index); // i
+void memory_index_redirect_prompt(int index); // wczytanie indeksu z argumentu postaci ^i
+void memory_index_prompt(int index); // wczytanie indeksu z argumentu postaci i
 
 void stream_disable_prompt(char tag[]); // warunek zostal spelniony, wiec blokujemy strumien az napotkamy etykiete
 void jump_to_tag_prompt(char tag[]); // warunek jest spelniony, wiec idziemy do etykiety

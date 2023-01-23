@@ -8,13 +8,13 @@
 
 // OBSLUGA AKUMULATORA - DZIAŁANIA NA AKUMULATORZE (MATEMATYCZNE ORAZ LOAD), WYPISANIE Z AKUMULATORA NA WYJSCIE (WRITE)
 
-int acc_arg_service(char arg[]);
+int acc_arg_service(char arg[]); // funkcja pomocnicza obsługująca wczytywanie argumentów
 
-bool load_value(char arg[]);
-bool add_value(char arg[]);
-bool sub_value(char arg[]);
-bool mult_value(char arg[]);
-bool div_value(char arg[]);
-bool write_value(char arg[]);
+bool load_value(char arg[]); // LOAD - wczytanie wartości do akumulatora
+bool add_value(char arg[]); // ADD - dodanie do wartości akumulatora
+bool sub_value(char arg[]); // SUB - odjęcie od wartości akumulatora
+bool mult_value(char arg[]); // MULT - pomnożenie wartości akumulatora
+bool div_value(char arg[]); // DIV - podzielenie wartosci akumulatora
+bool write_value(char arg[]); // WRITE - wypisanie wartości na wyjscie
 
 #endif //MASZYNARAM_ACCUMULATOR_SERVICE_H

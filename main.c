@@ -1,10 +1,8 @@
 #include "main_service.h"
 
-//extern FILE *file;
 
 int main(void) {
     for (int i = 1; i < MEMORY_SIZE; i++) memo[i] = INT_MIN;
-//    FILE *file;
 
     // wczytywanie tasmy wejsciowej
     int n;
@@ -14,7 +12,7 @@ int main(void) {
     printf("Wprowadz zawartosc tasmy wejsciowej (liczby calkowite rodzielone spacjami):\n");
     for (int i = 0; i < n; i++) {
         scanf("%d", &input);
-        insert_input_tape(input);
+        insert_tape(input, &input_head);
     }
 
     // wybor trybu
@@ -38,13 +36,13 @@ int main(void) {
         }
     }
 
-    // tryb ciagly TODO: moznaby przerywac program, kiedy nie da sie wykonac instrukcji z kolejki
+    // tryb ciagly
     else {
         printf("Wpisz 0, jezeli chcesz wybrac plik wejsciowy lub 1, aby wpisywac instrukcje do terminala\n");
         scanf("%d", &choose);
 
         // tryb ciagly z plikiem wejsciowym
-        if (choose == 0) { // TODO: obsluga pliku wejsciowego
+        if (choose == 0) {
             read_from_file = true;
             char path[100];
             printf("Podaj sciezke do pliku wejsciowego: \n");
@@ -67,8 +65,10 @@ int main(void) {
             stream_disabled = false;
             run_command_queue(TAG_PLACEHOLDER);
         }
+
+        // tryb ciągły z wpisywaniem do terminala
         else if (choose == 1) {
-            printf("Wpisuj kolejne instrukcje; gdy skonczysz, wpisz 'end'\n"); // TODO: legalnosc etykiet, zeby nie mozna bylo wpisac '<>'
+            printf("Wpisuj kolejne instrukcje; gdy skonczysz, wpisz 'end'\n");
             stream_disabled = true;
             strcpy(tag_on_stack, "<illegal tag>");
             char command[MAX_TAG_LEN];

@@ -3,19 +3,25 @@
 
 #include "support_functions_and_declarations.h"
 
-typedef struct tape_node { // struct reprezentujacy liczbe na tasmie
+// OBSLUGA TASM WEJSCIA/WYJSCIA
+
+// struct reprezentujacy liczbe na tasmie
+typedef struct tape_node {
     int data;
     struct tape_node* next;
 } tape_node;
 
-extern struct tape_node* input_head; // poczatek tasmy wejsciowej
-extern struct tape_node* output_head; // poczatek tasmy wyjsciowej
+// wskaznik na poczatek tasmy wejsciowej
+extern struct tape_node* input_head;
+// wskaznik na poczatek tasmy wyjsciowej
+extern struct tape_node* output_head;
 
-void get_input_tape();
-tape_node* insert_input_tape(int data);
+// dodanie elementu na koniec taśmy
+tape_node* insert_tape(int value, tape_node **head);
+// usunięcie (do wczytania) głowy z taśmy wejściowej
 tape_node* delete_input_tape();
-tape_node* insert_output_tape(int data);
 
-void print_tape(char io);
+// wypisanie stanu taśmy; argumentem powinien być char 'i' lub 'o'
+void print_tape(tape_node *head);
 
 #endif //MASZYNARAM_INPUT_OUTPUT_TAPES_H

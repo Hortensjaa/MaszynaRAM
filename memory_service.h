@@ -7,14 +7,13 @@
 
 // OBSLUGA PAMIECI - READ, STORE, OBSLUGA ARGUMENTOW DLA INDEKSOW
 
+// obsługa argumentów dla operacji READ oraz STORE
 int mem_arg_service(char arg[]);
 
-bool read_index(char arg[]);
-bool store_index(char arg[]);
+bool read_index(char arg[]); // READ - wczytanie liczby z taśmy wejściowej do komórki pamięci
+bool store_index(char arg[]); // STORE - wpisanie wartości akumulatora do komórki pamięci
 
-//void read(); // czytanie kolejnej liczby z taśmy wejściowej do komorki o numerze i
-//void store(); // zapisanie wartosci z akumulatora do komórki o numerze i
-
+// wypisywanie stanu (zajętych komórek) pamięci
 void print_memory();
 
 #endif //MASZYNARAM_MEMORY_SERVICE_H

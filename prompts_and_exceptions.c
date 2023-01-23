@@ -1,6 +1,8 @@
 #include "prompts_and_exceptions.h"
 
-// exceptions
+// BŁĘDY, WYJĄTKI I INNE KOMUNIKATY
+
+// BŁĘDY I WYJĄTKI
 int invalid_mem_index() {
     printf("Niepoprawny numer komorki\n");
     return INT_MIN;
@@ -26,7 +28,7 @@ bool empty_input() {
     return false;
 }
 
-// prompts
+// INNE KOMUNIKATY
 void index_redirect_prompt(int index, int redirect) {
     printf("Proba wykonania dzialania na liczbie %d znajdujacej sie w komorce nr %d "
            "(przekierowane z komorki nr %d)\n", memo[index], index, redirect);

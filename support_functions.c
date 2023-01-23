@@ -1,7 +1,7 @@
 #include "support_functions_and_declarations.h"
 
 
-// funkcje pomocnicze
+// funkcja pomocnicza sprawdzająca, czy stringi są jednakowe, ignorująca wielkość liter
 
 bool equal_string(const char* string1, const char* string2) {
     int i = 0;

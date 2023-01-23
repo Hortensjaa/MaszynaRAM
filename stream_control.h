@@ -5,9 +5,11 @@
 #include "commands_queue.h"
 #include "prompts_and_exceptions.h"
 
-bool jump_tag(char tag[]); // skok bezwarunkowy
-bool jzero_tag(char tag[]); // skok, jeśli w akumulatorze znajduje się zero
-bool jgtz_tag(char tag[]); // skok, jeśli w akumulatorze znajduje się liczba dodatnia
-bool halt_tag(char placeholder[]); // zatrzymanie programu
+// OBSŁUGA SKOKÓW I STRUMIENIA INSTRUKCJI
+
+bool jump_tag(char tag[]); // JUMP - skok bezwarunkowy
+bool jzero_tag(char tag[]); // JZERO - skok, jeśli w akumulatorze znajduje się zero
+bool jgtz_tag(char tag[]); // JGTZ - skok, jeśli w akumulatorze znajduje się liczba dodatnia
+bool halt_tag(char placeholder[]); // HALT - zatrzymanie programu
 
 #endif //MASZYNARAM_STREAM_CONTROL_H
